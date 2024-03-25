@@ -8,7 +8,7 @@ import { NotificationIcon } from '~/components/icons/notification-icon'
 
 export const Navbar = (): JSX.Element => {
   return (
-    <header className="flex items-center justify-between border-b border-gray-300 px-4 bg-white py-1">
+    <header className="flex items-center justify-between border-b border-gray-300 px-4 bg-white py-1 sticky top-0">
       <div className="flex items-center space-x-4">
         <button className="focus:outline-none rounded-full p-2 hover:bg-gray-200 transition ease-in-out duration-150">
           <Menu className="w-6 h-6 text-gray-700" />
