@@ -22,7 +22,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: Readonly<RootLayoutProps>): JSX.Element {
   return (
     <html lang="en">
-      <body className={cn('min-h-screen bg-slate-100', fontSans.variable)}>{children}</body>
+      <body className={cn(fontSans.variable)}>{children}</body>
     </html>
   )
 }
