@@ -3,8 +3,8 @@ import { lgLink, library, links } from '~/data/constant'
 
 export const Sidebar = (): JSX.Element => {
   return (
-    <div className="w-18 lg:w-60 flex-none bg-white flex flex-col h-screen">
-      <div className="overflow-y-auto">
+    <div className="w-18 lg:w-60 flex-none bg-white flex flex-col h-full">
+      <div className="overflow-y-auto sticky top-0">
         <div className="block lg:hidden">
           <ul className="mt-3 text-gray-600">
             {lgLink.map((link, i) => (
