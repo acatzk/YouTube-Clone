@@ -1,24 +1,26 @@
 'use client'
 
-import { PostType } from '~/data/constant'
+import moment from 'moment'
+import Image from 'next/image'
+
+import { VideoItem } from '~/types'
 
 type VideoCardProps = {
-  post: PostType
+  video: VideoItem
 }
 
-export const VideoCard = ({ post }: VideoCardProps): JSX.Element => {
+export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
   return (
-    <div className="relative">
+    <div className="relative group">
       <div className="flex-shrink-0 relative">
-        <img
-          src={post.thumbnailUrl}
-          className="w-full bg-gray-400 border-3 border-black overflow-hidden"
+        <Image
+          src={video.snippet.thumbnails.high.url}
+          className="w-full bg-gray-400 border-3 border-black overflow-hidden bg-cover rounded-2xl"
+          width={200}
+          height={200}
           alt="avatar"
         />
-        <div className="absolute bg-black text-white px-2 text-xs -mt-5 right-0 font-medium">
-          7:34
-        </div>
-        <div className="absolute top-0 right-0 flex flex-col mt-1 space-y-1 mr-1" v-show="false">
+        <div className="absolute top-0 right-0 flex flex-col mt-1 space-y-1 mr-1 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200">
           <button className="focus:outline-none">
             <svg
               className="w-6 h-6 fill-current  bg-gray-900 text-white"
@@ -49,16 +51,20 @@ export const VideoCard = ({ post }: VideoCardProps): JSX.Element => {
       </div>
       <div className="text-sm leading-tight flex items-start space-x-2 pt-3">
         <button className="flex-shrink-0 block">
-          <img src={post.avatar} className="w-10 h-10 rounded-full border" alt="avatar" />
+          <img
+            src={video.snippet.thumbnails.default.url}
+            className="w-10 h-10 rounded-full border bg-cover"
+            alt="avatar"
+          />
         </button>
         <div className="w-full mt-1">
-          <div className="font-medium text-sm tracking-wide text-gray-900 clamp-2">
-            {post.title}
+          <div className="font-medium text-sm tracking-wide text-gray-900 clamp-2 line-clamp-2">
+            {video.snippet.title}
           </div>
           <div className="text-sm mt-2 leading-tight">
             <a href="#" className="text-gray-700 hover:text-gray-800 flex items-center">
-              <span>{post.channel}</span>
-              <span v-show="post.isVerified">
+              <span>{video.snippet.channelTitle}</span>
+              <span v-show="video.isVerified">
                 <svg
                   className="pl-1 w-4 h-4"
                   fill="currentColor"
@@ -76,7 +82,7 @@ export const VideoCard = ({ post }: VideoCardProps): JSX.Element => {
               </span>
             </a>
             <span className="text-sm text-gray-700">
-              {post.views} &middot; {post.created_at}
+              {moment(video.snippet.publishedAt).startOf('day').fromNow()}
             </span>
           </div>
         </div>
