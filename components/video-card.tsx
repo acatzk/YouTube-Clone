@@ -16,9 +16,9 @@ export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
         <Image
           src={video.snippet.thumbnails.high.url}
           className="w-full bg-gray-400 border-3 border-black overflow-hidden bg-cover rounded-2xl"
-          width={200}
-          height={200}
-          alt="avatar"
+          width={50}
+          height={50}
+          alt="thumbnail"
         />
         <div className="absolute top-0 right-0 flex flex-col mt-1 space-y-1 mr-1 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200">
           <button className="focus:outline-none">

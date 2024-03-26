@@ -4,6 +4,7 @@ import { YoutubeApiResponse } from '~/types'
 import { VideoCard } from '~/components/video-card'
 
 import { Sidebar } from '../_components/sidebar'
+import Loading from './loading'
 
 const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
 
