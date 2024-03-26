@@ -10,7 +10,7 @@ type MainLayoutProps = {
 
 export default function MainLayout({ children }: MainLayoutProps): JSX.Element {
   return (
-    <div className={cn('min-h-screen flex flex-col bg-slate-100')}>
+    <div className={cn('min-h-screen h-screen flex flex-col bg-slate-100')}>
       <Navbar />
       <main className="flex-1 flex overflow-y-hidden">{children}</main>
     </div>
