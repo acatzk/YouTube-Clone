@@ -1,4 +1,8 @@
-import React from 'react'
+'use client'
+
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Menu, Search, SearchIcon } from 'lucide-react'
 
 import { UploadIcon } from '~/components/icons/upload-icon'
@@ -7,22 +11,35 @@ import { YoutubeIcon } from '~/components/icons/youtube-icon'
 import { NotificationIcon } from '~/components/icons/notification-icon'
 
 export const Navbar = (): JSX.Element => {
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const router = useRouter()
+
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
+    e.preventDefault()
+
+    if (searchQuery.trim() !== '') {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+    }
+  }
+
   return (
     <header className="flex items-center justify-between border-b border-gray-300 px-4 bg-white py-1 sticky top-0 z-50">
-      <div className="flex items-center space-x-4">
+      <Link href="/" className="flex items-center space-x-4">
         <button className="focus:outline-none rounded-full p-2 hover:bg-gray-200 transition ease-in-out duration-150">
           <Menu className="w-6 h-6 text-gray-700" />
         </button>
         <span className="flex items-center space-x-1">
           <YoutubeIcon />
         </span>
-      </div>
+      </Link>
       <div className="hidden sm:block">
         <div className="flex items-center justify-center space-x-2 ml-3">
-          <form className="flex">
+          <form className="flex" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="border border-gray-400 shadow-inner py-1 px-3 w-56 md:w-64 lg:w-[450px] rounded-l-sm focus:outline-none focus:border-blue-700"
             />
             <button className="border-t border-r border-b rounded-r-sm border-gray-400 py-1 px-6 bg-gray-100 text-sm hover:bg-gray-200 transition ease-in-out duration-150 focus:outline-none">
