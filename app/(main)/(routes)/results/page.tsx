@@ -58,7 +58,7 @@ export default function Results(): JSX.Element {
       {error && <p>{error}</p>}
       {!loading && !error && searchResults && (
         <div>
-          <h1>Search Results for "{searchQuery}"</h1>
+          <h1>Search Results for {searchQuery}</h1>
           {/* Render your search results here */}
           <pre>{JSON.stringify(searchResults, null, 2)}</pre>
         </div>

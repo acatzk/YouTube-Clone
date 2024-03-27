@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Menu, Search, SearchIcon } from 'lucide-react'
@@ -80,10 +81,12 @@ export const Navbar = (): JSX.Element => {
           </li>
           <li className="pl-3">
             <button className="focus:outline-none flex-shrink-0 p-2">
-              <img
+              <Image
+                width={32}
+                height={32}
                 className="w-8 h-8 bg-gray-500 rounded-full border border-gray-200"
                 src="https://avatars.githubusercontent.com/u/38458781?v=4"
-                alt=""
+                alt="Avatar"
               />
             </button>
           </li>

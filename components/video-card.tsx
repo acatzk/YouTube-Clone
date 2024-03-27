@@ -34,7 +34,9 @@ export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
         </div>
         <div className="text-sm leading-tight flex items-start space-x-2 pt-3">
           <button className="flex-shrink-0 block">
-            <img
+            <Image
+              width={40}
+              height={40}
               src={video.snippet.thumbnails.default.url}
               className="w-10 h-10 rounded-full border bg-cover"
               alt="avatar"
