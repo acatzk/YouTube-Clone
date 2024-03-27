@@ -23,7 +23,7 @@ async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse
   return data
 }
 
-export default function Search(): JSX.Element {
+export default function Results(): JSX.Element {
   const router = useRouter()
   const params = useSearchParams()
 

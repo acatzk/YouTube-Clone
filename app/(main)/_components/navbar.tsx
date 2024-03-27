@@ -18,12 +18,12 @@ export const Navbar = (): JSX.Element => {
     e.preventDefault()
 
     if (searchQuery.trim() !== '') {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+      router.push(`/results?search_query=${encodeURIComponent(searchQuery)}`)
     }
   }
 
   return (
-    <header className="flex items-center justify-between border-b border-gray-300 px-4 bg-white py-1 sticky top-0 z-50">
+    <header className="flex items-center justify-between px-4 bg-white py-1 sticky top-0 z-50">
       <Link href="/" className="flex items-center space-x-4">
         <button className="focus:outline-none rounded-full p-2 hover:bg-gray-200 transition ease-in-out duration-150">
           <Menu className="w-6 h-6 text-gray-700" />

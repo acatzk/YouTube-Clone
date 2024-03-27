@@ -3,6 +3,7 @@
 import moment from 'moment'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Volume2Icon } from 'lucide-react'
 
 import { VideoItem } from '~/types'
 
@@ -12,43 +13,23 @@ type VideoCardProps = {
 
 export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
   return (
-    <Link href={`/videos/${video.snippet.channelId}`}>
+    <Link href={`/watch?v=${video.id.videoId}`}>
       <div className="relative group">
         <div className="flex-shrink-0 relative">
           <Image
             src={video.snippet.thumbnails.high.url}
-            className="w-full bg-gray-400 border-3 border-black overflow-hidden bg-cover rounded-2xl"
-            width={50}
-            height={50}
+            className="inset-0 w-full h-full object-fill rounded-2xl group-hover:rounded-none transition-all ease-in-out duration-500"
+            height={video.snippet.thumbnails.high.height}
+            width={video.snippet.thumbnails.high.width}
+            quality={100}
+            placeholder="blur"
+            blurDataURL={video.snippet.thumbnails.medium.url}
             alt="thumbnail"
           />
-          <div className="absolute top-0 right-0 flex flex-col mt-1 space-y-1 mr-1 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200">
-            <button className="focus:outline-none">
-              <svg
-                className="w-6 h-6 fill-current  bg-gray-900 text-white"
-                viewBox="0 0 24 24"
-                preserveAspectRatio="xMidYMid meet"
-                focusable="false"
-              >
-                <path
-                  d="M12 3.67c-4.58 0-8.33 3.75-8.33 8.33s3.75 8.33 8.33 8.33 8.33-3.75 8.33-8.33S16.58 3.67 12 3.67zm3.5 11.83l-4.33-2.67v-5h1.25v4.34l3.75 2.25-.67 1.08z"
-                  className="style-scope yt-icon"
-                ></path>
-              </svg>
-            </button>
-            <button className="focus:outline-none bg-gray-900 text-white">
-              <svg
-                className="w-6 h-6 fill-current"
-                viewBox="0 0 24 24"
-                preserveAspectRatio="xMidYMid meet"
-                focusable="false"
-              >
-                <path
-                  d="M3.67 8.67h14V11h-14V8.67zm0-4.67h14v2.33h-14V4zm0 9.33H13v2.34H3.67v-2.34zm11.66 0v7l5.84-3.5-5.84-3.5z"
-                  className="style-scope yt-icon"
-                ></path>
-              </svg>
-            </button>
+          <div className="absolute top-2 right-2 flex flex-col space-y-1 mr-1 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200">
+            <div role="button">
+              <Volume2Icon className="w-5 h-5 fill-current text-white" />
+            </div>
           </div>
         </div>
         <div className="text-sm leading-tight flex items-start space-x-2 pt-3">
@@ -60,13 +41,13 @@ export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
             />
           </button>
           <div className="w-full mt-1">
-            <div className="font-medium text-sm tracking-wide text-gray-900 clamp-2 line-clamp-2">
+            <div className="font-bold text-sm tracking-wide text-slate-900 clamp-2 line-clamp-2">
               {video.snippet.title}
             </div>
             <div className="text-sm mt-2 leading-tight">
-              <a href="#" className="text-gray-700 hover:text-gray-800 flex items-center">
+              <div className="text-slate-700 hover:text-gray-800 flex items-center">
                 <span>{video.snippet.channelTitle}</span>
-                <span v-show="video.isVerified">
+                <span>
                   <svg
                     className="pl-1 w-4 h-4"
                     fill="currentColor"
@@ -82,13 +63,13 @@ export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
                     ></path>
                   </svg>
                 </span>
-              </a>
+              </div>
               <span className="text-sm text-gray-700">
                 {moment(video.snippet.publishedAt).startOf('day').fromNow()}
               </span>
             </div>
           </div>
-          <button className="flex-shrink-0">
+          <button className="flex-shrink-0 opacity-0 group-hover:opacity-100">
             <svg
               className="text-gray-700 h-6 w-6 fill-current"
               viewBox="0 0 24 24"
@@ -104,5 +85,22 @@ export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
         </div>
       </div>
     </Link>
+  )
+}
+
+VideoCard.Skeleton = function VideoCardSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="flex flex-col space-y-4">
+        <div className="w-full h-[250px] bg-gray-200 rounded-lg"></div>
+        <div className="flex items-center space-x-4 w-full">
+          <div className="h-10 w-10 bg-slate-200 rounded-full"></div>
+          <div className="flex flex-col items-start space-y-2">
+            <div className="h-4 w-[300px] bg-slate-200 rounded"></div>
+            <div className="h-4 w-[200px] bg-slate-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

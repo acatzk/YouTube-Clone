@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import type { Metadata } from 'next'
-import { Inter as FontSans } from 'next/font/google'
+import { Roboto as FontSans } from 'next/font/google'
 
 import '~/styles/globals.css'
 import { cn } from '~/lib/utils'
@@ -8,7 +8,8 @@ import { ProgressbarProvider } from '~/components/providers/progressbar-provider
 
 const fontSans = FontSans({
   subsets: ['latin'],
-  variable: '--font-sans'
+  variable: '--font-sans',
+  weight: '100'
 })
 
 export const metadata: Metadata = {

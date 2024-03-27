@@ -1,5 +1,6 @@
 import React from 'react'
 import { lgLink, library, links } from '~/data/constant'
+import { cn } from '~/lib/utils'
 
 export const Sidebar = (): JSX.Element => {
   return (
@@ -11,7 +12,14 @@ export const Sidebar = (): JSX.Element => {
               <li key={i} className="hover:bg-gray-200">
                 <button className="w-full flex flex-col items-center justify-center rounded-none focus:outline-none py-2 transition ease-in-out duration-150 space-y-1">
                   <span dangerouslySetInnerHTML={{ __html: link.icon }} />
-                  <span className="text-xs font-light tracking-tighter">{link.title}</span>
+                  <span
+                    className={cn(
+                      'text-xs tracking-tighter',
+                      link.title == 'Home' ? 'font-bold' : 'font-light'
+                    )}
+                  >
+                    {link.title}
+                  </span>
                 </button>
               </li>
             ))}
