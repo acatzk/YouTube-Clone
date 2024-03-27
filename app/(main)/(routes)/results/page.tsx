@@ -1,12 +1,14 @@
 'use client'
 
-import React from 'react'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 import { YoutubeApiResponse } from '~/types'
 
+const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
+const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
+
 async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse> {
-  const apiKey = process.env.YOUTUBE_API_KEY!
   const maxResults = 25
   const part = 'snippet'
   const type = 'video'
@@ -15,21 +17,52 @@ async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse
     'items(id(videoId),snippet(publishedAt,channelId,title,description,thumbnails,channelTitle))'
 
   const res = await fetch(
-    `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&maxResults=${maxResults}&part=${part}&type=${type}&order=${order}&q=${encodeURIComponent(
+    `${YOUTUBE_PLAYLIST_API}?key=${apiKey}&maxResults=${maxResults}&part=${part}&type=${type}&order=${order}&q=${encodeURIComponent(
       searchQuery
     )}&fields=${fields}`
   )
-  const data: YoutubeApiResponse = await res.json()
-  return data
+
+  return await res.json()
 }
 
 export default function Results(): JSX.Element {
-  const router = useRouter()
-  const params = useSearchParams()
+  const [searchResults, setSearchResults] = useState<YoutubeApiResponse | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+
+  const searchParams = useSearchParams()
+  const searchQueryParam = searchParams.get('search_query') ?? ''
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchYoutubeData(searchQueryParam)
+        setSearchResults(data)
+        setLoading(false)
+      } catch (error) {
+        setError('Error fetching data from YouTube API')
+        setLoading(false)
+      }
+    }
+
+    if (searchQueryParam) {
+      setSearchQuery(searchQueryParam)
+      fetchData()
+    }
+  }, [searchQueryParam])
 
   return (
     <div>
-      Hello search: <pre>{JSON.stringify({ params }, null, 2)}</pre>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {!loading && !error && searchResults && (
+        <div>
+          <h1>Search Results for "{searchQuery}"</h1>
+          {/* Render your search results here */}
+          <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+        </div>
+      )}
     </div>
   )
 }

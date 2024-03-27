@@ -6,7 +6,7 @@ import { VideoCard } from '~/components/video-card'
 const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
 
 async function getYoutubeData(): Promise<YoutubeApiResponse> {
-  const apiKey = process.env.YOUTUBE_API_KEY!
+  const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
   const maxResults = 25 // Number of videos to fetch
   const part = 'snippet' // Snippet data (includes title, thumbnails, etc.)
   const type = 'video' // Searching for videos

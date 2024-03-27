@@ -1,6 +1,7 @@
 import React from 'react'
-import { lgLink, library, links } from '~/data/constant'
+
 import { cn } from '~/lib/utils'
+import { lgLink, library, links } from '~/data/constant'
 
 export const Sidebar = (): JSX.Element => {
   return (
