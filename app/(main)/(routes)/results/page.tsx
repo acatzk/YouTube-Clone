@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import { YoutubeApiResponse } from '~/types'
+import Loading from '../loading'
+import { VideoCard } from '~/components/video-card'
 
 const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
 const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
@@ -53,14 +55,14 @@ export default function Results(): JSX.Element {
   }, [searchQueryParam])
 
   return (
-    <div>
-      {loading && <p>Loading...</p>}
+    <div className="overflow-y-auto flex-1">
+      {loading && <Loading />}
       {error && <p>{error}</p>}
       {!loading && !error && searchResults && (
-        <div>
-          <h1>Search Results for {searchQuery}</h1>
-          {/* Render your search results here */}
-          <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+        <div className="grid grid-cols-1 gap-y-8">
+          {searchResults?.items?.map((video, i) => (
+            <VideoCard key={i} video={video} isRow />
+          ))}
         </div>
       )}
     </div>

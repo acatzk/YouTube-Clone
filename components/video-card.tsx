@@ -5,16 +5,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Volume2Icon } from 'lucide-react'
 
+import { cn } from '~/lib/utils'
 import { VideoItem } from '~/types'
 
 type VideoCardProps = {
   video: VideoItem
+  isRow?: boolean
 }
 
-export const VideoCard = ({ video }: VideoCardProps): JSX.Element => {
+export const VideoCard = ({ video, isRow = false }: VideoCardProps): JSX.Element => {
   return (
     <Link href={`/watch?v=${video.id.videoId}`}>
-      <div className="relative group">
+      <div className={cn('relative group flex', isRow ? 'flex-row' : 'flex-col')}>
         <div className="flex-shrink-0 relative">
           <Image
             src={video.snippet.thumbnails.high.url}

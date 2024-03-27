@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import Link from 'next/link'
 
 import { cn } from '~/lib/utils'
 import { lgLink, library, links } from '~/data/constant'
@@ -11,17 +14,20 @@ export const Sidebar = (): JSX.Element => {
           <ul className="mt-3 text-gray-600">
             {lgLink.map((link, i) => (
               <li key={i} className="hover:bg-gray-200">
-                <button className="w-full flex flex-col items-center justify-center rounded-none focus:outline-none py-2 transition ease-in-out duration-150 space-y-1">
+                <Link
+                  href={link.title === 'Home' ? '/' : '#'}
+                  className="w-full flex flex-col items-center justify-center rounded-none focus:outline-none py-2 transition ease-in-out duration-150 space-y-1"
+                >
                   <span dangerouslySetInnerHTML={{ __html: link.icon }} />
                   <span
                     className={cn(
                       'text-xs tracking-tighter',
-                      link.title == 'Home' ? 'font-bold' : 'font-light'
+                      link.title === 'Home' ? 'font-bold' : 'font-light'
                     )}
                   >
                     {link.title}
                   </span>
-                </button>
+                </Link>
               </li>
             ))}
           </ul>
