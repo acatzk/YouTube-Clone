@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import { YoutubeApiResponse } from '~/types'
-import Loading from '../loading'
 import { VideoCard } from '~/components/video-card'
+import { searchResultsData } from '~/data/searchResults'
+
+import Loading from '../loading'
 
 // const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
 // const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
@@ -28,7 +30,7 @@ import { VideoCard } from '~/components/video-card'
 // }
 
 export default function Results(): JSX.Element {
-  const [searchResults, setSearchResults] = useState<YoutubeApiResponse | null>(null)
+  const [searchResults, setSearchResults] = useState<YoutubeApiResponse | null>(searchResultsData)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -55,17 +57,14 @@ export default function Results(): JSX.Element {
   // }, [searchQueryParam])
 
   return (
-    <div className="overflow-y-auto flex-1">
-      {/* {loading && <Loading />}
-      {error && <p>{error}</p>} */}
-      <pre>{JSON.stringify(searchResults, null, 2)}</pre>
-      {/* {!loading && !error && searchResults && (
+    <div className="flex-1 overflow-y-auto">
+      <div className="container mx-auto max-w-screen-xl w-full px-4 py-6">
         <div className="grid grid-cols-1 gap-y-8">
           {searchResults?.items?.map((video, i) => (
             <VideoCard key={i} video={video} isRow />
           ))}
         </div>
-      )} */}
+      </div>
     </div>
   )
 }
