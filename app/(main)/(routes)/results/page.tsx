@@ -7,25 +7,25 @@ import { YoutubeApiResponse } from '~/types'
 import Loading from '../loading'
 import { VideoCard } from '~/components/video-card'
 
-const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
-const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
+// const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
+// const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
 
-async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse> {
-  const maxResults = 25
-  const part = 'snippet'
-  const type = 'video'
-  const order = 'relevance'
-  const fields =
-    'items(id(videoId),snippet(publishedAt,channelId,title,description,thumbnails,channelTitle))'
+// async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse> {
+//   const maxResults = 25
+//   const part = 'snippet'
+//   const type = 'video'
+//   const order = 'relevance'
+//   const fields =
+//     'items(id(videoId),snippet(publishedAt,channelId,title,description,thumbnails,channelTitle))'
 
-  const res = await fetch(
-    `${YOUTUBE_PLAYLIST_API}?key=${apiKey}&maxResults=${maxResults}&part=${part}&type=${type}&order=${order}&q=${encodeURIComponent(
-      searchQuery
-    )}&fields=${fields}`
-  )
+//   const res = await fetch(
+//     `${YOUTUBE_PLAYLIST_API}?key=${apiKey}&maxResults=${maxResults}&part=${part}&type=${type}&order=${order}&q=${encodeURIComponent(
+//       searchQuery
+//     )}&fields=${fields}`
+//   )
 
-  return await res.json()
-}
+//   return await res.json()
+// }
 
 export default function Results(): JSX.Element {
   const [searchResults, setSearchResults] = useState<YoutubeApiResponse | null>(null)
@@ -36,35 +36,36 @@ export default function Results(): JSX.Element {
   const searchParams = useSearchParams()
   const searchQueryParam = searchParams.get('search_query') ?? ''
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await fetchYoutubeData(searchQueryParam)
-        setSearchResults(data)
-        setLoading(false)
-      } catch (error) {
-        setError('Error fetching data from YouTube API')
-        setLoading(false)
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const data = await fetchYoutubeData(searchQueryParam)
+  //       setSearchResults(data)
+  //       setLoading(false)
+  //     } catch (error) {
+  //       setError('Error fetching data from YouTube API')
+  //       setLoading(false)
+  //     }
+  //   }
 
-    if (searchQueryParam) {
-      setSearchQuery(searchQueryParam)
-      fetchData()
-    }
-  }, [searchQueryParam])
+  //   if (searchQueryParam) {
+  //     setSearchQuery(searchQueryParam)
+  //     fetchData()
+  //   }
+  // }, [searchQueryParam])
 
   return (
     <div className="overflow-y-auto flex-1">
-      {loading && <Loading />}
-      {error && <p>{error}</p>}
-      {!loading && !error && searchResults && (
+      {/* {loading && <Loading />}
+      {error && <p>{error}</p>} */}
+      <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+      {/* {!loading && !error && searchResults && (
         <div className="grid grid-cols-1 gap-y-8">
           {searchResults?.items?.map((video, i) => (
             <VideoCard key={i} video={video} isRow />
           ))}
         </div>
-      )}
+      )} */}
     </div>
   )
 }
