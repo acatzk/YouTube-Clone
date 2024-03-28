@@ -7,27 +7,27 @@ import { YoutubeApiResponse } from '~/types'
 import { VideoCard } from '~/components/video-card'
 import { searchResultsData } from '~/data/searchResults'
 
-import Loading from '../loading'
+import Loading from './loading'
 
-// const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
-// const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
+const YOUTUBE_PLAYLIST_API = 'https://www.googleapis.com/youtube/v3/search'
+const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!
 
-// async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse> {
-//   const maxResults = 25
-//   const part = 'snippet'
-//   const type = 'video'
-//   const order = 'relevance'
-//   const fields =
-//     'items(id(videoId),snippet(publishedAt,channelId,title,description,thumbnails,channelTitle))'
+async function fetchYoutubeData(searchQuery: string): Promise<YoutubeApiResponse> {
+  const maxResults = 25
+  const part = 'snippet'
+  const type = 'video'
+  const order = 'relevance'
+  const fields =
+    'items(id(videoId),snippet(publishedAt,channelId,title,description,thumbnails,channelTitle))'
 
-//   const res = await fetch(
-//     `${YOUTUBE_PLAYLIST_API}?key=${apiKey}&maxResults=${maxResults}&part=${part}&type=${type}&order=${order}&q=${encodeURIComponent(
-//       searchQuery
-//     )}&fields=${fields}`
-//   )
+  const res = await fetch(
+    `${YOUTUBE_PLAYLIST_API}?key=${apiKey}&maxResults=${maxResults}&part=${part}&type=${type}&order=${order}&q=${encodeURIComponent(
+      searchQuery
+    )}&fields=${fields}`
+  )
 
-//   return await res.json()
-// }
+  return await res.json()
+}
 
 export default function Results(): JSX.Element {
   const [searchResults, setSearchResults] = useState<YoutubeApiResponse | null>(searchResultsData)
@@ -38,23 +38,27 @@ export default function Results(): JSX.Element {
   const searchParams = useSearchParams()
   const searchQueryParam = searchParams.get('search_query') ?? ''
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const data = await fetchYoutubeData(searchQueryParam)
-  //       setSearchResults(data)
-  //       setLoading(false)
-  //     } catch (error) {
-  //       setError('Error fetching data from YouTube API')
-  //       setLoading(false)
-  //     }
-  //   }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchYoutubeData(searchQueryParam)
+        setSearchResults(data)
+        setLoading(false)
+      } catch (error) {
+        setError('Error fetching data from YouTube API')
+        setLoading(false)
+      }
+    }
 
-  //   if (searchQueryParam) {
-  //     setSearchQuery(searchQueryParam)
-  //     fetchData()
-  //   }
-  // }, [searchQueryParam])
+    if (searchQueryParam) {
+      setSearchQuery(searchQueryParam)
+      fetchData()
+    }
+  }, [searchQueryParam])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div className="flex-1 overflow-y-auto">
