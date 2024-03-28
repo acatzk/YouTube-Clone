@@ -41,11 +41,11 @@ export const Navbar = (): JSX.Element => {
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border border-gray-400 shadow-inner py-1 px-3 w-56 md:w-64 lg:w-[450px] rounded-l-sm focus:outline-none focus:border-blue-700"
+              className="border border-gray-300 shadow-inner py-1.5 px-3 w-56 md:w-64 lg:w-[450px] rounded-l-full focus:outline-none focus:border-blue-700"
             />
             <button
               type="button"
-              className="border-t border-r border-b rounded-r-sm border-gray-400 py-1 px-6 bg-gray-100 text-sm hover:bg-gray-200 transition ease-in-out duration-150 focus:outline-none"
+              className="border-t border-r border-b rounded-r-full border-gray-300 py-1 px-6 bg-gray-100 text-sm hover:bg-gray-200 transition ease-in-out duration-150 focus:outline-none"
             >
               <SearchIcon className="w-5 h-5 text-gray-600" />
             </button>
