@@ -5,10 +5,14 @@
 - Next.js (App directory)
 - Tailwindcss
 - Shadcn-ui
+- Youtube API
 
 
 ### Definition of Done
-- Display Youtube Public Data
-- Deployed URL: https://sun-take-home-project.vercel.app
-- Able to Search - work in progress
+- Display Public Youtube Data (Video, Thumbnail, Title, Description, etc.)
+- Able to Search Videos
 - Able to Watch Video - Work in progress
+
+
+### Deployed Link
+- https://sun-take-home-project.vercel.app
