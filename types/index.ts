@@ -49,6 +49,9 @@ export type ChannelItem = {
       standard: Thumbnail
       maxres: Thumbnail
     }
+    channelId: string
+    publishedAt: string
+    channelTitle: string
   }
 }
 
