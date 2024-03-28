@@ -11,7 +11,7 @@
 ### Definition of Done
 - Display Public Youtube Data (Video, Thumbnail, Title, Description, etc.)
 - Able to Search Videos
-- Able to Watch Video - Work in progress
+- Able to Watch Video
 
 
 ### Deployed Link
